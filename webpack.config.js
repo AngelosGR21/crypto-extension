@@ -7,6 +7,8 @@ module.exports = {
     main: path.resolve(__dirname, 'src/index.jsx'),
     background: path.resolve(__dirname, 'src/background/background.js'),
     app: path.resolve(__dirname, 'src/components/App.jsx'),
+    marketData: path.resolve(__dirname, 'src/assets/marketData.js'),
+    SearchBox: path.resolve(__dirname, 'src/components/SearchBox/SearchBox.js'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -39,4 +41,7 @@ module.exports = {
       template: 'src/assets/template.html',
     }),
   ],
+  optimization: {
+    runtimeChunk: 'single',
+  },
 };
