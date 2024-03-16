@@ -1,0 +1,9 @@
+{
+   "version": "2.0",
+   "name": "Crypto Tracker",
+   "manifest_version": 3,
+   "action": {
+    "default_title": "Crypto Tracker",
+    "default_popup": "dist/index.html"
+   }
+}
