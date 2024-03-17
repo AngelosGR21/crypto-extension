@@ -1,17 +1,21 @@
 import { useState } from 'react';
 import { TextField } from '@mui/material';
 import { marketData } from '../../assets/marketData';
+import SymbolCard from '../SymbolCard/SymbolCard';
 
 const SearchBox = () => {
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState(() => []);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const searchFunctionality = (e) => {
-    console.log(e.target.value.length);
-    if (e.target.value.length === 0) {
+    const currentValue = e.target.value;
+
+    setSearchTerm(currentValue);
+    if (currentValue.length === 0) {
       setSearchResults([]);
       return;
     }
-    const capitalizedSearch = e.target.value.toUpperCase();
+    const capitalizedSearch = currentValue.toUpperCase();
     const marketSearched = [];
 
     marketData.forEach((market) => {
@@ -32,13 +36,27 @@ const SearchBox = () => {
         placeholder='Search markets here'
         size='small'
         onChange={searchFunctionality}
+        value={searchTerm}
       />
-      <div>
-        {searchResults.length !== 0 &&
-          searchResults.map((result) => {
-            return <div>{result?.symbol}</div>;
+      {searchTerm.length > 0 && searchResults.length === 0 && (
+        <div>
+          <h4>No markets found</h4>
+        </div>
+      )}
+
+      {searchTerm.length > 0 && searchResults.length > 0 && (
+        <div>
+          {searchResults.map((result) => {
+            return (
+              <SymbolCard
+                symbol={result}
+                key={result.symbol}
+                setSearchTerm={setSearchTerm}
+              />
+            );
           })}
-      </div>
+        </div>
+      )}
     </>
   );
 };

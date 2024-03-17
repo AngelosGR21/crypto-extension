@@ -35,8 +35,7 @@ try {
       baseAsset: exchange.baseAsset,
       endingAsset: exchange.quoteAsset,
       status: exchange.status,
-      icon,
-      test: 'a',
+      icon: icon ? `data:image/svg+xml;utf8,${encodeURIComponent(icon)}` : '',
     };
   });
 
