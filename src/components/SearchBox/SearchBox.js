@@ -38,23 +38,18 @@ const SearchBox = () => {
         onChange={searchFunctionality}
         value={searchTerm}
       />
-      {searchTerm.length > 0 && searchResults.length === 0 && (
+      {searchTerm.length > 0 && (
         <div>
-          <h4>No markets found</h4>
-        </div>
-      )}
-
-      {searchTerm.length > 0 && searchResults.length > 0 && (
-        <div>
-          {searchResults.map((result) => {
-            return (
-              <SymbolCard
-                symbol={result}
-                key={result.symbol}
-                setSearchTerm={setSearchTerm}
-              />
-            );
-          })}
+          {(searchResults.length === 0 && <h4>No markets found</h4>) ||
+            searchResults.map((result) => {
+              return (
+                <SymbolCard
+                  symbol={result}
+                  key={result.symbol}
+                  setSearchTerm={setSearchTerm}
+                />
+              );
+            })}
         </div>
       )}
     </>

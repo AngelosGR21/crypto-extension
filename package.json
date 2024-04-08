@@ -7,7 +7,7 @@
     "start": "react-scripts start",
     "build": "webpack",
     "dev": "webpack serve --open",
-    "build-market-data": "node ./src/assets/helpers.mjs"
+    "build-market-data": "node ./src/assets/buildMarketData.mjs"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +20,7 @@
     "binance-icons": "^0.5.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-use-websocket": "^4.5.0"
+    "react-use-websocket": "^4.8.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
