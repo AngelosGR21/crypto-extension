@@ -4,11 +4,13 @@ import SymbolCard from '../SymbolCard/SymbolCard';
 const Watchlist = ({ savedSymbols }) => {
   return (
     <>
-      <h4>Watchlist</h4>
+      <Typography variant='h6' align='center' sx={{ margin: '10px 0' }}>
+        Watchlist
+      </Typography>
       {(savedSymbols.length > 0 &&
         savedSymbols.map((symbol) => (
           <SymbolCard showPrice symbol={symbol} key={symbol.symbol} />
-        ))) || <Typography>No markets saved</Typography>}
+        ))) || <Typography align='center'>No markets saved</Typography>}
     </>
   );
 };
