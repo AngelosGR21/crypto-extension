@@ -2,14 +2,16 @@ import { createTheme } from '@mui/material';
 
 const colors = {
   black: '#131313',
-  yellow: '#DCA225',
-  darkerYellow: '#CE8D24',
-  orange: '#C17823',
-  darkerOrange: '#B46322',
-  grey: '#18181B',
-  lighterGray: '#FFFFFF1A',
-  white: '#FFFFFF',
-  darkerGray: '#F3F3F3',
+  bronze: '#C17823',
+  charcoal: '#18181B',
+  darkerBronze: '#B46322',
+  darkerGold: '#CE8D24',
+  gold: '#DCA225',
+  lightGray: '#F3F3F3',
+  darkGray: '#1A1A1A',
+  silver: '#EAEAEA',
+  snowWhite: '#FFFFFF',
+  translucentWhite: '#FFFFFF1A',
 };
 
 export const themeGenerator = (isDark) =>
@@ -17,13 +19,13 @@ export const themeGenerator = (isDark) =>
     palette: {
       mode: isDark ? 'dark' : 'light',
       background: {
-        default: isDark ? colors.black : colors.white,
+        default: isDark ? colors.black : colors.snowWhite,
       },
       text: {
-        primary: isDark ? colors.darkerGray : colors.black,
+        primary: isDark ? colors.lightGray : colors.black,
       },
       primary: {
-        main: colors.darkerYellow,
+        main: colors.darkerGold,
       },
       colors,
     },
@@ -31,8 +33,8 @@ export const themeGenerator = (isDark) =>
       MuiCard: {
         styleOverrides: {
           root: {
-            backgroundColor: isDark ? colors.grey : colors.darkerGray,
-            border: `1px solid ${colors.lighterGray}`,
+            backgroundColor: isDark ? colors.charcoal : colors.lightGray,
+            border: `1px solid ${colors.translucentWhite}`,
             display: 'flex',
             flexDirection: 'row',
           },

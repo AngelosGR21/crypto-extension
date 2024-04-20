@@ -36,6 +36,18 @@ export const getLocalStorageWatchlist = () => {
   return watchlist;
 };
 
-export const updateLocalStorageWatchlist = (updatedWatchlist) => {
-  localStorage.setItem('Watchlist', stringifyMessage(updatedWatchlist));
+export const getLocalStorageTheme = () => {
+  let theme = localStorage.getItem('Theme');
+  if (!theme) {
+    theme = window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+    localStorage.setItem('Theme', theme);
+  }
+
+  return theme;
+};
+
+export const updateLocalStorageItem = (key, value, stringify = false) => {
+  localStorage.setItem(key, stringify ? stringifyMessage(value) : value);
 };
