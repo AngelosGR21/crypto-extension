@@ -1,22 +1,28 @@
 import { useContext, useEffect, useState } from 'react';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  IconButton,
-  Typography,
-} from '@mui/material';
+import { Box, CardActions, Typography } from '@mui/material';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import CheckIcon from '@mui/icons-material/Check';
 import { SymbolsContext } from '../../Contexts';
 import {
   stringifyMessage,
   constructSymbolString,
-  updateLocalStorageWatchlist,
+  updateLocalStorageItem,
 } from '../../helpers/helpers.mjs';
+import {
+  StyledCard,
+  StyledCardContent,
+  StyledSymbolName,
+  StyledIconButton,
+} from './SymbolCardStyles';
 
-const SymbolCard = ({ symbol, showPrice = false, setSearchTerm }) => {
+const SymbolCard = ({
+  symbol,
+  showPrice = false,
+  setSearchTerm,
+  setPopover,
+}) => {
   const {
     watchlistSymbols,
     setWatchlistSymbols,
@@ -32,6 +38,10 @@ const SymbolCard = ({ symbol, showPrice = false, setSearchTerm }) => {
       0,
   );
 
+  const symbolExistsInWatchlist = watchlistSymbols.find(
+    (watchlistSymbol) => watchlistSymbol.symbol === symbol.symbol,
+  );
+
   useEffect(() => {
     setPrice(
       (prev) =>
@@ -39,33 +49,28 @@ const SymbolCard = ({ symbol, showPrice = false, setSearchTerm }) => {
           parseFloat(symbolsPriceDetails.p)) ||
         prev,
     );
-  }, [symbolsPriceDetails?.p]);
+  }, [symbolsPriceDetails?.s === symbol.symbol, symbolsPriceDetails?.p]);
 
   const handleAddSymbol = () => {
+    let updatedWatchlist = [];
     if (!watchlistSymbols.length) {
-      const updatedWatchlist = [symbol];
-      updateLocalStorageWatchlist(updatedWatchlist);
-      setWatchlistSymbols(updatedWatchlist);
+      updatedWatchlist = [symbol];
     } else {
-      const symbolExistsInWatchlist = watchlistSymbols.find(
-        (symbolInWatchlist) => symbolInWatchlist.symbol === symbol.symbol,
-      );
-
-      if (!symbolExistsInWatchlist) {
-        const updatedWatchlist = [...watchlistSymbols, symbol];
-        updateLocalStorageWatchlist(updatedWatchlist);
-        setWatchlistSymbols(updatedWatchlist);
-
-        updateConnection(
-          stringifyMessage({
-            method: 'SUBSCRIBE',
-            params: [constructSymbolString(symbol)],
-            id: binanceId,
-          }),
-        );
-      }
+      updatedWatchlist = [...watchlistSymbols, symbol];
     }
 
+    updateLocalStorageItem('Watchlist', updatedWatchlist, true);
+    setWatchlistSymbols(updatedWatchlist);
+
+    updateConnection(
+      stringifyMessage({
+        method: 'SUBSCRIBE',
+        params: [constructSymbolString(symbol)],
+        id: binanceId,
+      }),
+    );
+
+    setPopover(false);
     setSearchTerm('');
   };
 
@@ -73,7 +78,7 @@ const SymbolCard = ({ symbol, showPrice = false, setSearchTerm }) => {
     const updatedWatchlist = watchlistSymbols.filter(
       (listSymbol) => listSymbol.symbol !== symbol.symbol,
     );
-    updateLocalStorageWatchlist(updatedWatchlist);
+    updateLocalStorageItem('Watchlist', updatedWatchlist, true);
     setWatchlistSymbols(updatedWatchlist);
 
     updateConnection(
@@ -85,31 +90,47 @@ const SymbolCard = ({ symbol, showPrice = false, setSearchTerm }) => {
     );
   };
 
-  return (
-    <Card style={{ display: 'flex', flexDirection: 'row' }}>
-      <CardContent>
-        {(!symbol.icon && <MonetizationOnIcon />) || (
-          <img src={symbol.icon} style={{ display: 'inline-block' }} />
-        )}
+  const CoinLogo = () => {
+    const styles = {
+      width: '30px',
+      display: 'inline-block',
+      marginRight: '16px',
+    };
+    if (!symbol.icon) {
+      return <MonetizationOnIcon sx={styles} />;
+    } else {
+      return <Box component='img' src={symbol.icon} style={styles} />;
+    }
+  };
 
-        <Typography style={{ display: 'inline-block' }}>
-          {symbol.symbol}
-        </Typography>
+  return (
+    <StyledCard>
+      <StyledCardContent>
+        <CoinLogo />
+        <StyledSymbolName>{symbol.symbol}</StyledSymbolName>
         {showPrice && <Typography>{price}</Typography>}
-      </CardContent>
+      </StyledCardContent>
       <CardActions>
-        {!showPrice && (
-          <IconButton size='small' onClick={handleAddSymbol}>
-            <AddIcon />
-          </IconButton>
-        )}
-        {showPrice && (
-          <IconButton size='small' onClick={handleRemoveSymbol}>
+        {(showPrice && (
+          <StyledIconButton
+            size='small'
+            onClick={handleRemoveSymbol}
+            icontype='remove'
+          >
             <RemoveIcon />
-          </IconButton>
-        )}
+          </StyledIconButton>
+        )) ||
+          (symbolExistsInWatchlist && <CheckIcon />) || (
+            <StyledIconButton
+              size='small'
+              onClick={handleAddSymbol}
+              icontype='add'
+            >
+              <AddIcon />
+            </StyledIconButton>
+          )}
       </CardActions>
-    </Card>
+    </StyledCard>
   );
 };
 
