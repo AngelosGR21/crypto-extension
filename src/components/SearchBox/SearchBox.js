@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, ClickAwayListener, Typography } from '@mui/material';
+import { ClickAwayListener } from '@mui/material';
 import { marketData } from '../../assets/marketData';
 import SymbolCard from '../SymbolCard/SymbolCard';
 import {
@@ -50,6 +50,7 @@ const SearchBox = () => {
       >
         <StyledSearchAndResultsContainer>
           <StyledSearchBox
+            autoComplete='off'
             placeholder='Search markets here'
             size='small'
             onChange={searchFunctionality}

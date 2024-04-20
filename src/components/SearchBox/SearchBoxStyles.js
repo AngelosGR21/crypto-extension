@@ -1,5 +1,4 @@
-import { styled } from '@mui/material';
-import { TextField, Box, Typography } from '@mui/material';
+import { styled, TextField, Box, Typography } from '@mui/material';
 
 export const StyledSearchBox = styled(TextField)({
   margin: '0 auto',
