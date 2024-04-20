@@ -1,11 +1,18 @@
 import { useState } from 'react';
-import { TextField } from '@mui/material';
+import { Box, ClickAwayListener, Typography } from '@mui/material';
 import { marketData } from '../../assets/marketData';
 import SymbolCard from '../SymbolCard/SymbolCard';
+import {
+  StyledSearchBox,
+  StyledSearchResultsContainer,
+  StyledSearchAndResultsContainer,
+  StyledNoMarketsTypography,
+} from './SearchBoxStyles';
 
 const SearchBox = () => {
   const [searchResults, setSearchResults] = useState(() => []);
   const [searchTerm, setSearchTerm] = useState('');
+  const [popover, setPopover] = useState(false);
 
   const searchFunctionality = (e) => {
     const currentValue = e.target.value;
@@ -13,8 +20,12 @@ const SearchBox = () => {
     setSearchTerm(currentValue);
     if (currentValue.length === 0) {
       setSearchResults([]);
+      setPopover(false);
       return;
+    } else {
+      setPopover(true);
     }
+
     const capitalizedSearch = currentValue.toUpperCase();
     const marketSearched = [];
 
@@ -32,26 +43,47 @@ const SearchBox = () => {
 
   return (
     <>
-      <TextField
-        placeholder='Search markets here'
-        size='small'
-        onChange={searchFunctionality}
-        value={searchTerm}
-      />
-      {searchTerm.length > 0 && (
-        <div>
-          {(searchResults.length === 0 && <h4>No markets found</h4>) ||
-            searchResults.map((result) => {
-              return (
-                <SymbolCard
-                  symbol={result}
-                  key={result.symbol}
-                  setSearchTerm={setSearchTerm}
-                />
+      <ClickAwayListener
+        onClickAway={() => {
+          setPopover(false);
+        }}
+      >
+        <StyledSearchAndResultsContainer>
+          <StyledSearchBox
+            placeholder='Search markets here'
+            size='small'
+            onChange={searchFunctionality}
+            onFocus={() => {
+              setPopover(
+                searchResults.length > 0 || searchTerm.length > 0
+                  ? true
+                  : false,
               );
-            })}
-        </div>
-      )}
+            }}
+            value={searchTerm}
+          />
+
+          {popover && (
+            <StyledSearchResultsContainer>
+              {(searchResults.length === 0 && (
+                <StyledNoMarketsTypography>
+                  No markets found
+                </StyledNoMarketsTypography>
+              )) ||
+                searchResults.map((result) => {
+                  return (
+                    <SymbolCard
+                      symbol={result}
+                      key={result.symbol}
+                      setSearchTerm={setSearchTerm}
+                      setPopover={setPopover}
+                    />
+                  );
+                })}
+            </StyledSearchResultsContainer>
+          )}
+        </StyledSearchAndResultsContainer>
+      </ClickAwayListener>
     </>
   );
 };
