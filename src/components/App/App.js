@@ -9,7 +9,7 @@ import {
   getLocalStorageWatchlist,
 } from '../../helpers/helpers.mjs';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box, Typography } from '@mui/material';
+import { CssBaseline, Box, Typography, GlobalStyles } from '@mui/material';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import logoDark from '../../assets/logoDark.svg';
 import logoLight from '../../assets/logoLight.svg';
@@ -31,6 +31,19 @@ const App = () => {
 
   return (
     <>
+      <GlobalStyles
+        styles={{
+          body: {
+            padding: '0 0 16px 0',
+            minWidth: '400px',
+            height: '500px',
+          },
+          '#root': {
+            height: '500px',
+            overflowY: 'scroll',
+          },
+        }}
+      />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <SymbolsContext.Provider

@@ -65,7 +65,7 @@ const SearchBox = () => {
           />
 
           {popover && (
-            <StyledSearchResultsContainer>
+            <StyledSearchResultsContainer elevation={24}>
               {(searchResults.length === 0 && (
                 <StyledNoMarketsTypography>
                   No markets found

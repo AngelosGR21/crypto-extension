@@ -1,14 +1,16 @@
-import { styled, TextField, Box, Typography } from '@mui/material';
+import { styled, TextField, Box, Typography, Paper } from '@mui/material';
 
 export const StyledSearchBox = styled(TextField)({
   margin: '0 auto',
   width: '100%',
 });
 
-export const StyledSearchResultsContainer = styled(Box)(({ theme }) => ({
+export const StyledSearchResultsContainer = styled(Paper)(({ theme }) => ({
   width: '90%',
   position: 'absolute',
   paddingTop: '8px',
+  height: '380px',
+  overflowY: 'scroll',
   backgroundColor:
     theme.palette.mode === 'dark' ? '#1A1A1A' : theme.palette.colors.silver,
   zIndex: 1,
