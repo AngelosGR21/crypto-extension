@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { ClickAwayListener } from '@mui/material';
 import { marketData } from '../../assets/marketData';
+import CustomScrollBarContainer from '../CustomScrollbar/CustomScrollBarContainer';
 import SymbolCard from '../SymbolCard/SymbolCard';
 import {
   StyledSearchBox,
-  StyledSearchResultsContainer,
   StyledSearchAndResultsContainer,
   StyledNoMarketsTypography,
 } from './SearchBoxStyles';
@@ -65,7 +65,7 @@ const SearchBox = () => {
           />
 
           {popover && (
-            <StyledSearchResultsContainer elevation={24}>
+            <CustomScrollBarContainer isSearch>
               {(searchResults.length === 0 && (
                 <StyledNoMarketsTypography>
                   No markets found
@@ -78,10 +78,11 @@ const SearchBox = () => {
                       key={result.symbol}
                       setSearchTerm={setSearchTerm}
                       setPopover={setPopover}
+                      fromSearch
                     />
                   );
                 })}
-            </StyledSearchResultsContainer>
+            </CustomScrollBarContainer>
           )}
         </StyledSearchAndResultsContainer>
       </ClickAwayListener>

@@ -15,6 +15,10 @@ module.exports = {
       __dirname,
       'src/components/SymbolCard/SymbolCard.js',
     ),
+    CustomScrollBar: path.resolve(
+      __dirname,
+      'src/components/CustomScrollbar/CustomScrollBarContainer.js',
+    ),
     ThemeSwitch: path.resolve(
       __dirname,
       'src/components/ThemeSwitch/ThemeSwitch.js',
@@ -53,7 +57,7 @@ module.exports = {
   },
   plugins: [
     new htmlWebpackPlugin({
-      title: 'Test App',
+      title: 'Crypto Tracker',
       template: 'src/assets/template.html',
     }),
   ],

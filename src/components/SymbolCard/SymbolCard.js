@@ -22,6 +22,7 @@ const SymbolCard = ({
   showPrice = false,
   setSearchTerm,
   setPopover,
+  fromSearch,
 }) => {
   const {
     watchlistSymbols,
@@ -104,7 +105,7 @@ const SymbolCard = ({
   };
 
   return (
-    <StyledCard>
+    <StyledCard fromSearch>
       <StyledCardContent>
         <CoinLogo />
         <StyledSymbolName>{symbol.symbol}</StyledSymbolName>

@@ -6,10 +6,14 @@ import {
   IconButton,
 } from '@mui/material';
 
-export const StyledCard = styled(Card)({
+export const StyledCard = styled(Card)(({ fromSearch }) => ({
   width: '90%',
   margin: '0 auto 16px auto',
-});
+
+  '&:first-child': {
+    marginTop: fromSearch ? '16px' : '0',
+  },
+}));
 
 export const StyledCardContent = styled(CardContent)({
   width: '90%',

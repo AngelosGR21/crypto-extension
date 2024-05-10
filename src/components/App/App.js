@@ -9,11 +9,11 @@ import {
   getLocalStorageWatchlist,
 } from '../../helpers/helpers.mjs';
 import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline, Box, Typography, GlobalStyles } from '@mui/material';
+import { CssBaseline, Typography } from '@mui/material';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import logoDark from '../../assets/logoDark.svg';
 import logoLight from '../../assets/logoLight.svg';
-import { classes } from './AppStyles';
+import { AppContainer, AppLogo } from './AppStyles';
 
 const App = () => {
   const localStorageWatchlist = getLocalStorageWatchlist();
@@ -31,19 +31,6 @@ const App = () => {
 
   return (
     <>
-      <GlobalStyles
-        styles={{
-          body: {
-            padding: '0 0 16px 0',
-            minWidth: '400px',
-            height: '500px',
-          },
-          '#root': {
-            height: '500px',
-            overflowY: 'scroll',
-          },
-        }}
-      />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <SymbolsContext.Provider
@@ -55,14 +42,14 @@ const App = () => {
             binanceId,
           }}
         >
-          <Box sx={classes.container}>
-            <Box component='img' src={themedLogo} sx={classes.logo} />
+          <AppContainer>
+            <AppLogo component='img' src={themedLogo} />
             <Typography variant='h5'>Crypto Tracker</Typography>
             <ThemeSwitch
               setCurrentTheme={setCurrentTheme}
               currentTheme={currentTheme}
             />
-          </Box>
+          </AppContainer>
           <SearchBox setWatchlistSymbols={setWatchlistSymbols} />
           <Watchlist savedSymbols={watchlistSymbols} />
         </SymbolsContext.Provider>

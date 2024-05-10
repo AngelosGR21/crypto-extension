@@ -5,17 +5,6 @@ export const StyledSearchBox = styled(TextField)({
   width: '100%',
 });
 
-export const StyledSearchResultsContainer = styled(Paper)(({ theme }) => ({
-  width: '90%',
-  position: 'absolute',
-  paddingTop: '8px',
-  height: '380px',
-  overflowY: 'scroll',
-  backgroundColor:
-    theme.palette.mode === 'dark' ? '#1A1A1A' : theme.palette.colors.silver,
-  zIndex: 1,
-}));
-
 export const StyledSearchAndResultsContainer = styled(Box)({
   width: '90%',
   margin: '8px auto 16px auto',

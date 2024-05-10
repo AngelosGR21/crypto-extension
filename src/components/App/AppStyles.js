@@ -1,14 +1,14 @@
-export const classes = {
-  container: {
-    width: '90%',
-    margin: '8px auto',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
+import { Box, styled } from '@mui/material';
 
-  logo: {
-    width: '50px',
-    display: 'block',
-  },
-};
+export const AppContainer = styled(Box)({
+  width: '90%',
+  margin: '8px auto',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+});
+
+export const AppLogo = styled(Box)({
+  width: '50px',
+  display: 'block',
+});
