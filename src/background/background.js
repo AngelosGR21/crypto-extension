@@ -5,8 +5,7 @@ import {
   getBinanceId,
 } from '../utils/helpers.mjs';
 
-// const baseSocketUrl = 'wss://stream.binance.com:9443/ws';
-const baseSocketUrl = 'wss://stream.binance.comssssss:9443/ws';
+const baseSocketUrl = 'wss://stream.binance.com:9443/ws';
 
 const sendMessageStringified = (sendMessageFunc, objToSend) => {
   sendMessageFunc(objToSend);
@@ -47,8 +46,7 @@ export const useBinanceConnection = ({ watchlistSymbols }) => {
         lastMessage?.data &&
         JSON.parse(lastMessage?.data)) ||
       {},
-    connectionStatus: 'Connecting',
-    // connectionStatus,
+    connectionStatus,
     binanceId,
   };
 };
