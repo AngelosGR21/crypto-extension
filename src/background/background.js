@@ -3,9 +3,14 @@ import {
   stringifyMessage,
   constructInitialConnectionParams,
   getBinanceId,
-} from '../helpers/helpers.mjs';
+} from '../utils/helpers.mjs';
 
-const baseSocketUrl = 'wss://stream.binance.com:9443/ws';
+// const baseSocketUrl = 'wss://stream.binance.com:9443/ws';
+const baseSocketUrl = 'wss://stream.binance.comssssss:9443/ws';
+
+const sendMessageStringified = (sendMessageFunc, objToSend) => {
+  sendMessageFunc(objToSend);
+};
 
 export const useBinanceConnection = ({ watchlistSymbols }) => {
   const binanceId = getBinanceId();
@@ -36,13 +41,14 @@ export const useBinanceConnection = ({ watchlistSymbols }) => {
   }[readyState];
 
   return {
-    sendMessage,
+    sendMessage: (param) => sendMessageStringified(sendMessage, param),
     lastMessage:
       (connectionStatus === 'Open' &&
         lastMessage?.data &&
         JSON.parse(lastMessage?.data)) ||
       {},
-    connectionStatus,
+    connectionStatus: 'Connecting',
+    // connectionStatus,
     binanceId,
   };
 };

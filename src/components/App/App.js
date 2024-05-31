@@ -2,12 +2,12 @@ import { useState } from 'react';
 import SearchBox from '../SearchBox/SearchBox';
 import Watchlist from '../Watchlist/Watchlist';
 import { SymbolsContext } from '../../Contexts';
-import { themeGenerator } from '../../helpers/themes';
+import { themeGenerator } from '../../utils/themes';
 import { useBinanceConnection } from '../../background/background';
 import {
   getLocalStorageTheme,
   getLocalStorageWatchlist,
-} from '../../helpers/helpers.mjs';
+} from '../../utils/helpers.mjs';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline, Typography } from '@mui/material';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
@@ -23,9 +23,10 @@ const App = () => {
   );
   const [currentTheme, setCurrentTheme] = useState(userTheme);
 
-  const { sendMessage, lastMessage, binanceId } = useBinanceConnection({
-    watchlistSymbols,
-  });
+  const { sendMessage, lastMessage, binanceId, connectionStatus } =
+    useBinanceConnection({
+      watchlistSymbols,
+    });
   const theme = themeGenerator(currentTheme === 'dark');
   const themedLogo = currentTheme === 'dark' ? logoDark : logoLight;
 
@@ -39,6 +40,7 @@ const App = () => {
             setWatchlistSymbols,
             symbolsPriceDetails: lastMessage,
             updateConnection: sendMessage,
+            connectionStatus,
             binanceId,
           }}
         >

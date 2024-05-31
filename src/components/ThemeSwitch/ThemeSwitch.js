@@ -1,6 +1,6 @@
 import { Switch } from '@mui/material';
 import styled from '@emotion/styled';
-import { updateLocalStorageItem } from '../../helpers/helpers.mjs';
+import { updateLocalStorageItem } from '../../utils/helpers.mjs';
 
 const CustomSwitch = styled(Switch)(({ theme }) => ({
   width: 56,

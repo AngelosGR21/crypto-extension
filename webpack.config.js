@@ -23,7 +23,7 @@ module.exports = {
       __dirname,
       'src/components/ThemeSwitch/ThemeSwitch.js',
     ),
-    helpers: path.resolve(__dirname, 'src/helpers/helpers.mjs'),
+    helpers: path.resolve(__dirname, 'src/utils/helpers.mjs'),
   },
   output: {
     path: path.resolve(__dirname, 'dist'),

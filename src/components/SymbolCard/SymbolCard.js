@@ -1,15 +1,14 @@
 import { useContext, useEffect, useState } from 'react';
-import { Box, CardActions, Typography } from '@mui/material';
+import { Box, CardActions } from '@mui/material';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import CheckIcon from '@mui/icons-material/Check';
 import { SymbolsContext } from '../../Contexts';
 import {
-  stringifyMessage,
   constructSymbolString,
   updateLocalStorageItem,
-} from '../../helpers/helpers.mjs';
+} from '../../utils/helpers.mjs';
 import {
   StyledCard,
   StyledCardContent,
@@ -17,12 +16,14 @@ import {
   StyledIconButton,
 } from './SymbolCardStyles';
 
+import SymbolPrice from './SymbolPrice';
+
 const SymbolCard = ({
   symbol,
   showPrice = false,
   setSearchTerm,
   setPopover,
-  fromSearch,
+  setSearchResults,
 }) => {
   const {
     watchlistSymbols,
@@ -30,6 +31,7 @@ const SymbolCard = ({
     symbolsPriceDetails,
     updateConnection,
     binanceId = '',
+    connectionStatus,
   } = useContext(SymbolsContext);
 
   const [price, setPrice] = useState(
@@ -63,16 +65,15 @@ const SymbolCard = ({
     updateLocalStorageItem('Watchlist', updatedWatchlist, true);
     setWatchlistSymbols(updatedWatchlist);
 
-    updateConnection(
-      stringifyMessage({
-        method: 'SUBSCRIBE',
-        params: [constructSymbolString(symbol)],
-        id: binanceId,
-      }),
-    );
+    updateConnection({
+      method: 'SUBSCRIBE',
+      params: [constructSymbolString(symbol)],
+      id: binanceId,
+    });
 
     setPopover(false);
     setSearchTerm('');
+    setSearchResults([]);
   };
 
   const handleRemoveSymbol = () => {
@@ -82,13 +83,11 @@ const SymbolCard = ({
     updateLocalStorageItem('Watchlist', updatedWatchlist, true);
     setWatchlistSymbols(updatedWatchlist);
 
-    updateConnection(
-      stringifyMessage({
-        method: 'UNSUBSCRIBE',
-        params: [constructSymbolString(symbol)],
-        id: binanceId,
-      }),
-    );
+    updateConnection({
+      method: 'UNSUBSCRIBE',
+      params: [constructSymbolString(symbol)],
+      id: binanceId,
+    });
   };
 
   const CoinLogo = () => {
@@ -105,11 +104,13 @@ const SymbolCard = ({
   };
 
   return (
-    <StyledCard fromSearch>
+    <StyledCard>
       <StyledCardContent>
         <CoinLogo />
         <StyledSymbolName>{symbol.symbol}</StyledSymbolName>
-        {showPrice && <Typography>{price}</Typography>}
+        {showPrice && (
+          <SymbolPrice price={price} connectionStatus={connectionStatus} />
+        )}
       </StyledCardContent>
       <CardActions>
         {(showPrice && (

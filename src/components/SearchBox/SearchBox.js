@@ -78,7 +78,7 @@ const SearchBox = () => {
                       key={result.symbol}
                       setSearchTerm={setSearchTerm}
                       setPopover={setPopover}
-                      fromSearch
+                      setSearchResults={setSearchResults}
                     />
                   );
                 })}

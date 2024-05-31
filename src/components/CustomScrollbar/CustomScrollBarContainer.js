@@ -1,6 +1,6 @@
 import { Scrollbars } from '@om-tlh/react-custom-scrollbars';
 import { Box, styled } from '@mui/material';
-import { getLocalStorageTheme } from '../../helpers/helpers.mjs';
+import { getLocalStorageTheme } from '../../utils/helpers.mjs';
 
 const StyledScrollBarBox = styled(Box)(({ theme, style }) => ({
   ...style,

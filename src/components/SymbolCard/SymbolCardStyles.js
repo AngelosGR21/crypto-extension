@@ -6,14 +6,14 @@ import {
   IconButton,
 } from '@mui/material';
 
-export const StyledCard = styled(Card)(({ fromSearch }) => ({
+export const StyledCard = styled(Card)({
   width: '90%',
   margin: '0 auto 16px auto',
 
-  '&:first-child': {
-    marginTop: fromSearch ? '16px' : '0',
+  '&:first-of-type': {
+    marginTop: '16px',
   },
-}));
+});
 
 export const StyledCardContent = styled(CardContent)({
   width: '90%',
@@ -23,7 +23,10 @@ export const StyledCardContent = styled(CardContent)({
 export const StyledSymbolName = styled(Typography)({
   display: 'inline-block',
   marginRight: '16px',
+  width: '40%',
 });
+
+export const StyledSymbolPrice = styled(Typography)({});
 
 export const StyledIconButton = styled(IconButton)(({ theme, icontype }) => ({
   ...((theme.palette.mode === 'dark' && {
