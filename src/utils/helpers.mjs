@@ -48,25 +48,6 @@ export const getLocalStorageTheme = () => {
   return theme;
 };
 
-export const getLocalStorageItem = (key) => {
-  let foundItem = localStorage.getItem(key);
-  // if (!foundItem) {
-  // }
-};
-
-const localStorageCondition = (key) => {
-  switch (key) {
-    case 'theme':
-      break;
-    case 'watchlist':
-      break;
-    default:
-      break;
-  }
-  if (key === 'theme') {
-  }
-};
-
 export const updateLocalStorageItem = (key, value, stringify = false) => {
   localStorage.setItem(key, stringify ? stringifyMessage(value) : value);
 };

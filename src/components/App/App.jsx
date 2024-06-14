@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import SearchBox from '../SearchBox/SearchBox';
+import SearchBox from '../SearchBox/SearchBox.jsx';
 import Watchlist from '../Watchlist/Watchlist';
 import { SymbolsContext } from '../../Contexts';
 import { themeGenerator } from '../../utils/themes';

@@ -7,9 +7,12 @@ module.exports = {
   entry: {
     main: path.resolve(__dirname, 'src/index.jsx'),
     background: path.resolve(__dirname, 'src/background/background.js'),
-    app: path.resolve(__dirname, 'src/components/App/App.js'),
+    app: path.resolve(__dirname, 'src/components/App/App.jsx'),
     marketData: path.resolve(__dirname, 'src/assets/marketData.js'),
-    SearchBox: path.resolve(__dirname, 'src/components/SearchBox/SearchBox.js'),
+    SearchBox: path.resolve(
+      __dirname,
+      'src/components/SearchBox/SearchBox.jsx',
+    ),
     Watchlist: path.resolve(__dirname, 'src/components/Watchlist/Watchlist.js'),
     SymbolCard: path.resolve(
       __dirname,
